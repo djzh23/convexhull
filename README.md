@@ -1,43 +1,43 @@
 # Convex Hull Algorithms
 
-This project implements two classic algorithms for computing the convex hull of a point set in 2D:
+Dieses Projekt implementiert zwei klassische Algorithmen zur Berechnung der konvexen Hülle einer Punktmenge in 2D:
 
-- **Graham Scan** - An efficient algorithm with O(n log n) time complexity
-- **Jarvis March (Gift Wrapping)** - A simpler algorithm with O(nh) time complexity, where h is the number of points on the hull
+- **Graham Scan** - Ein effizienter Algorithmus mit O(n log n) Zeitkomplexität
+- **Jarvis March (Gift Wrapping)** - Ein einfacherer Algorithmus mit O(nh) Zeitkomplexität, wobei h die Anzahl der Punkte auf der Hülle ist
 
-The convex hull of a point set is one of the most studied geometric problems in both algorithmics and pure mathematics. Computing the convex hull is a fundamental operation in computational geometry.
+Die konvexe Hülle einer Punktmenge ist eines der am meisten untersuchten geometrischen Probleme sowohl in der Algorithmik als auch in der reinen Mathematik. Die Berechnung der konvexen Hülle ist eine grundlegende Operation in der Computergeometrie.
 
 ## Features
 
-- ✅ Step-by-step visual representation of the algorithms
-- ✅ Both algorithms fully implemented
-- ✅ Interactive visualization with matplotlib
-- ✅ Clean, well-documented code
+- ✅ Visuelle Darstellung der Algorithmen Schritt für Schritt
+- ✅ Beide Algorithmen vollständig implementiert
+- ✅ Interaktive Visualisierung mit matplotlib
+- ✅ Sauberer, dokumentierter Code
 
-## Visualizations
+## Visualisierungen
 
-### Graham Scan Algorithm
+### Graham Scan Algorithmus
 
 ![Graham Scan Demo](demo_graham_scan.gif)
 
-### Jarvis March Algorithm
+### Jarvis March Algorithmus
 
 ![Jarvis March Demo](demo_jarvis_march.gif)
 
 ## Installation
 
-1. Clone the repository:
+1. Repository klonen:
 ```bash
 git clone https://github.com/djzh23/convexhull.git
 cd convexhull
 ```
 
-2. Create a virtual environment (recommended):
+2. Virtuelles Environment erstellen (empfohlen):
 ```bash
 python -m venv venv
 ```
 
-3. Activate the virtual environment:
+3. Virtuelles Environment aktivieren:
    - Windows:
    ```bash
    venv\Scripts\activate
@@ -47,86 +47,86 @@ python -m venv venv
    source venv/bin/activate
    ```
 
-4. Install dependencies:
+4. Abhängigkeiten installieren:
 ```bash
 pip install -r requirements.txt
 ```
 
-## Usage
+## Verwendung
 
-### Graham Scan Algorithm
+### Graham Scan Algorithmus
 
 ```bash
-python FindingConvexHullImplementierung/GrahamScan.py [number_of_points]
+python FindingConvexHullImplementierung/GrahamScan.py [anzahl_punkte]
 ```
 
-Example:
+Beispiel:
 ```bash
 python FindingConvexHullImplementierung/GrahamScan.py 50
 ```
 
-If no number is provided, you will be prompted to enter it.
+Wenn keine Anzahl angegeben wird, werden Sie zur Eingabe aufgefordert.
 
-### Jarvis March Algorithm
+### Jarvis March Algorithmus
 
 ```bash
-python FindingConvexHullImplementierung/JarvisMarch.py [number_of_points]
+python FindingConvexHullImplementierung/JarvisMarch.py [anzahl_punkte]
 ```
 
-Example:
+Beispiel:
 ```bash
 python FindingConvexHullImplementierung/JarvisMarch.py 50
 ```
 
-## Algorithms
+## Algorithmen
 
 ### Graham Scan
 
-The Graham Scan algorithm works in two phases:
-1. **Upper Hull**: Computes the upper part of the convex hull
-2. **Lower Hull**: Computes the lower part of the convex hull
+Der Graham-Scan-Algorithmus funktioniert in zwei Phasen:
+1. **Obere Hülle**: Berechnet den oberen Teil der konvexen Hülle
+2. **Untere Hülle**: Berechnet den unteren Teil der konvexen Hülle
 
-**Time Complexity**: O(n log n)  
-**Space Complexity**: O(n)
+**Zeitkomplexität**: O(n log n)  
+**Raumkomplexität**: O(n)
 
 ### Jarvis March (Gift Wrapping)
 
-The Jarvis March algorithm starts with the leftmost point and "wraps" the hull step by step until it returns to the starting point.
+Der Jarvis-March-Algorithmus beginnt mit dem linkesten Punkt und "wickelt" die Hülle Schritt für Schritt ein, bis er wieder zum Startpunkt zurückkehrt.
 
-**Time Complexity**: O(nh), where h is the number of points on the hull  
-**Space Complexity**: O(n)
+**Zeitkomplexität**: O(nh), wobei h die Anzahl der Punkte auf der Hülle ist  
+**Raumkomplexität**: O(n)
 
-## Project Structure
+## Projektstruktur
 
 ```
 convexhull/
 ├── FindingConvexHullImplementierung/
-│   ├── GrahamScan.py          # Graham Scan implementation
-│   └── JarvisMarch.py          # Jarvis March implementation
-├── requirements.txt            # Python dependencies
-├── .gitignore                  # Git ignore file
-├── REFERENCES.md               # References and sources
-├── demo_graham_scan.gif        # Graham Scan visualization
-├── demo_jarvis_march.gif       # Jarvis March visualization
-└── README.md                   # This file
+│   ├── GrahamScan.py          # Graham Scan Implementierung
+│   └── JarvisMarch.py          # Jarvis March Implementierung
+├── requirements.txt            # Python Abhängigkeiten
+├── .gitignore                  # Git Ignore Datei
+├── REFERENCES.md              # Referenzen und Quellen
+├── demo_graham_scan.gif       # Graham Scan Visualisierung
+├── demo_jarvis_march.gif      # Jarvis March Visualisierung
+└── README.md                  # Diese Datei
 ```
 
-## Dependencies
+## Abhängigkeiten
 
-- `numpy >= 1.19.0` - For numerical operations
-- `matplotlib >= 3.3.0` - For visualization
+- `numpy >= 1.19.0` - Für numerische Operationen
+- `matplotlib >= 3.3.0` - Für die Visualisierung
 
-## References
+## Quellen
 
-The implementations are based on the following sources:
+Die Implementierungen basieren auf folgenden Quellen:
 - [Jarvis March Demonstration](https://www.wolframcloud.com/objects/demonstrations/JarvisMarchToFindTheConvexHullOfASetOfPointsIn2D-source.nb)
 - [Convex Hull Notes](http://jeffe.cs.illinois.edu/teaching/373/notes/x05-convexhull.pdf)
 - [Convex Hull Tutorial](https://learnopencv.com/convex-hull-using-opencv-in-python-and-c/)
 
-## License
+## Lizenz
 
-This project was created as a university project and is available for educational purposes.
+Dieses Projekt wurde als Universitätsprojekt erstellt und ist für Bildungszwecke verfügbar.
 
-## Author
+## Autor
 
-University project - published on GitHub
+Universitätsprojekt - für GitHub veröffentlicht
