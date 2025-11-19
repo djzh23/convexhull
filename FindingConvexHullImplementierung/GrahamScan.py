@@ -1,82 +1,106 @@
-# Script: Berechnen der konvexen Hülle einer Punktmenge mit dem Graham-Scan (Plotting each step!) Algorithmus
+"""
+Graham Scan Algorithm zur Berechnung der konvexen Hülle einer Punktmenge.
+
+Dieses Skript implementiert den Graham-Scan-Algorithmus mit visueller Darstellung
+jedes Schritts zur Berechnung der konvexen Hülle.
+"""
 
 import sys
-
 import numpy as np
 import matplotlib.pyplot as plt
 
 
-# Function to know if we have a CCW turn
-def RightTurn(p1, p2, p3):
+def right_turn(p1, p2, p3):
     """
-        Compute the determinant of three points, to determine the turn direction, as a 3x3 matrix:
-        [p1(x) p1(y) 1]
-        [p2(x) p2(y) 1]
-        [p3(x) p3(y) 1]
-
-        :param p1: the first point coordinates as a [x,y] list
-        :param p2: the second point coordinates as a [x,y] list
-        :param p3: the third point coordinates as a [x,y] list
-        :return: the value >0 if counter-clockwise, <0 if clockwise or =0 if collinear
-        """
+    Prüft, ob drei Punkte eine Rechtskurve (clockwise turn) bilden.
+    
+    Berechnet die Determinante einer 3x3 Matrix:
+    [p1(x) p1(y) 1]
+    [p2(x) p2(y) 1]
+    [p3(x) p3(y) 1]
+    
+    Args:
+        p1: Erster Punkt als [x, y] Liste
+        p2: Zweiter Punkt als [x, y] Liste
+        p3: Dritter Punkt als [x, y] Liste
+    
+    Returns:
+        True wenn counter-clockwise (Linkskurve), False wenn clockwise (Rechtskurve)
+    """
     if (p3[1] - p1[1]) * (p2[0] - p1[0]) >= (p2[1] - p1[1]) * (p3[0] - p1[0]):
         return False
     return True
 
 
-# Main algorithm:
-def GrahamScan(P):
-
-    P.sort()  # Sort the set of points
-    P = np.array(P)  # Convert the list to numpy array
-    plt.figure()  # Create a new fig
-    L_upper = [P[0], P[1]]  # Initialize the upper part
-
-    # Compute the upper part of the hull
-    for i in range(2, len(P)):
-        L_upper.append(P[i])
-        while len(L_upper) > 2 and not RightTurn(L_upper[-1], L_upper[-2], L_upper[-3]):
-            del L_upper[-2]
-        L = np.array(L_upper)
-        plt.clf()  # Clear plt.fig
-        plt.plot(L[:, 0], L[:, 1], 'b-', picker=5)  # Plot lines
-        plt.plot(P[:, 0], P[:, 1], ".r")  # Plot points
-        plt.axis('off')  # No axis
-        plt.show(block=False)  # Close plot
-        plt.pause(0.0000001)  # Mini-pause before closing plot
-    L_lower = [P[-1], P[-2]]  # Initialize the lower part
-
-    # Compute the lower part of the hull
-    for i in range(len(P) - 3, -1, -1):
-        L_lower.append(P[i])
-
-        while len(L_lower) > 2 and not RightTurn(L_lower[-1], L_lower[-2], L_lower[-3]):
-            del L_lower[-2]
-
-        L = np.array(L_upper + L_lower)
-        plt.clf()  # Clear plt.fig
-        plt.plot(L[:, 0], L[:, 1], 'b-', picker=8)  # Plot lines
-        plt.plot(P[:, 0], P[:, 1], ".r")  # Plot points
-        plt.axis('off')  # No axis
-        plt.show(block=False)  # Close plot
-        plt.pause(0.0000001)  # Mini-pause befor closing plot
-    del L_lower[0]
-    del L_lower[-1]
-    L = L_upper + L_lower  # Build the full hull
+def graham_scan(points):
+    """
+    Berechnet die konvexe Hülle einer Punktmenge mit dem Graham-Scan-Algorithmus.
+    
+    Der Algorithmus funktioniert in zwei Phasen:
+    1. Berechnung des oberen Teils der Hülle
+    2. Berechnung des unteren Teils der Hülle
+    
+    Args:
+        points: Liste von Punkten als [(x1, y1), (x2, y2), ...]
+    
+    Returns:
+        NumPy-Array der Punkte auf der konvexen Hülle
+    """
+    points.sort()  # Punkte sortieren
+    points = np.array(points)  # In NumPy-Array konvertieren
+    plt.figure()  # Neue Figur erstellen
+    
+    # Obere Hülle berechnen
+    l_upper = [points[0], points[1]]
+    for i in range(2, len(points)):
+        l_upper.append(points[i])
+        while len(l_upper) > 2 and not right_turn(l_upper[-1], l_upper[-2], l_upper[-3]):
+            del l_upper[-2]
+        l = np.array(l_upper)
+        plt.clf()  # Plot löschen
+        plt.plot(l[:, 0], l[:, 1], 'b-', picker=5)  # Linien plotten
+        plt.plot(points[:, 0], points[:, 1], ".r")  # Punkte plotten
+        plt.axis('off')  # Keine Achsen
+        plt.show(block=False)  # Plot anzeigen (nicht blockierend)
+        plt.pause(0.0000001)  # Kurze Pause
+    
+    # Untere Hülle berechnen
+    l_lower = [points[-1], points[-2]]
+    for i in range(len(points) - 3, -1, -1):
+        l_lower.append(points[i])
+        while len(l_lower) > 2 and not right_turn(l_lower[-1], l_lower[-2], l_lower[-3]):
+            del l_lower[-2]
+        l = np.array(l_upper + l_lower)
+        plt.clf()  # Plot löschen
+        plt.plot(l[:, 0], l[:, 1], 'b-', picker=8)  # Linien plotten
+        plt.plot(points[:, 0], points[:, 1], ".r")  # Punkte plotten
+        plt.axis('off')  # Keine Achsen
+        plt.show(block=False)  # Plot anzeigen (nicht blockierend)
+        plt.pause(0.0000001)  # Kurze Pause
+    
+    # Ersten und letzten Punkt der unteren Hülle entfernen (doppelt)
+    del l_lower[0]
+    del l_lower[-1]
+    l = l_upper + l_lower  # Vollständige Hülle zusammenfügen
     plt.axis('on')
     plt.show()
-    return np.array(L)
+    return np.array(l)
 
 
 def main():
+    """
+    Hauptfunktion: Liest die Anzahl der Punkte ein und berechnet die konvexe Hülle.
+    """
     try:
-        N = int(sys.argv[1])
-    except:
-        N = int(input("Anzahl der Punkte N eingeben :"))
+        n = int(sys.argv[1])
+    except (IndexError, ValueError):
+        n = int(input("Anzahl der Punkte N eingeben: "))
 
-    # By default we build a random set of N points with coordinates in [-300,300)x[-300,300):
-    P = [(np.random.randint(-300, 300), np.random.randint(-300, 300)) for i in range(N)]
-    L = GrahamScan(P)
+    # Zufällige Punktmenge mit Koordinaten in [-300, 300) x [-300, 300)
+    points = [(np.random.randint(-300, 300), np.random.randint(-300, 300)) 
+              for _ in range(n)]
+    hull = graham_scan(points)
+    print(f"Konvexe Hülle berechnet mit {len(hull)} Punkten.")
 
 
 if __name__ == '__main__':
