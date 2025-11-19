@@ -106,7 +106,6 @@ convexhull/
 ├── requirements.txt            # Python dependencies
 ├── .gitignore                  # Git ignore file
 ├── REFERENCES.md               # References and sources
-├── create_demo_gifs.py         # Script to generate demo GIFs
 ├── demo_graham_scan.gif        # Graham Scan visualization
 ├── demo_jarvis_march.gif       # Jarvis March visualization
 └── README.md                   # This file
@@ -116,17 +115,6 @@ convexhull/
 
 - `numpy >= 1.19.0` - For numerical operations
 - `matplotlib >= 3.3.0` - For visualization
-- `imageio >= 2.9.0` - For GIF generation (optional, only needed for creating demo GIFs)
-
-## Creating Demo GIFs
-
-To create your own demo GIFs, run:
-
-```bash
-python create_demo_gifs.py
-```
-
-This will generate `demo_graham_scan.gif` and `demo_jarvis_march.gif` in the project root.
 
 ## References
 
